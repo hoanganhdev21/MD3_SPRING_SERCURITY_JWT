@@ -1,5 +1,6 @@
 package com.securityjwt.config;
 
+import com.securityjwt.security.jwt.AccessDenied;
 import com.securityjwt.security.jwt.JwtEntryPoint;
 import com.securityjwt.security.jwt.JwtTokenFilter;
 import com.securityjwt.security.user_principal.UserDetailService;
@@ -17,6 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -28,6 +32,8 @@ public class WebSecurityConfig {
     private JwtEntryPoint jwtEntryPoint;
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
+    @Autowired
+//    private AccessDenied accessDenied;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -40,6 +46,30 @@ public class WebSecurityConfig {
                 sessionManagement((auth) -> auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http
+//                .cors(auth -> auth.configurationSource(request -> {
+//                    CorsConfiguration config = new CorsConfiguration();
+//                    config.setAllowedOrigins(List.of("http://localhost:5173/"));
+//                    config.setAllowedMethods(List.of("*"));
+//                    config.setAllowCredentials(true);
+//                    config.setAllowedHeaders(List.of("*"));
+//                    config.setExposedHeaders(List.of("Authorization"));
+//                    return config;
+//                }))
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .authenticationProvider(authenticationProvider())
+//                .authorizeHttpRequests((auth) ->
+//                        auth.requestMatchers("/auth/**").permitAll()
+//                                .anyRequest().authenticated())
+//                .exceptionHandling((auth) ->
+//                        auth.authenticationEntryPoint(jwtEntryPoint)
+//                                .accessDeniedHandler(accessDenied))
+//                .sessionManagement((auth) -> auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+//                .build();
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

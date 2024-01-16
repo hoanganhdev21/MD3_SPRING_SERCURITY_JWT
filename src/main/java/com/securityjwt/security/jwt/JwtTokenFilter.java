@@ -21,34 +21,35 @@ import java.io.IOException;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
     @Autowired
-    private  JwtProvider jwtProvider;
+    private JwtProvider jwtProvider;
     @Autowired
     private UserDetailService userDetailService;
     private Logger logger = LoggerFactory.getLogger(JwtEntryPoint.class);
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String token = getTokenFromRequest(request);
-            if(token != null && jwtProvider.validate(token)){
+            if (token != null && jwtProvider.validate(token)) {
                 String userName = jwtProvider.getUserNameFromToken(token);
                 UserDetails userDetails = userDetailService.loadUserByUsername(userName);
-                if(userDetails != null){
+                if (userDetails != null) {
                     UsernamePasswordAuthenticationToken authenticationToken
-                            = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                            = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
             }
-        } catch (Exception exception){
-            logger.error("Un authencation {}",exception.getMessage());
+        } catch (Exception exception) {
+            logger.error("Un authencation {}", exception.getMessage());
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 
-    public String getTokenFromRequest(HttpServletRequest request){
+    public String getTokenFromRequest(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
-        if(header != null && header.startsWith("Bearer ")){
+        if (header != null && header.startsWith("Bearer ")) {
             return header.substring(7);
         }
         return null;
