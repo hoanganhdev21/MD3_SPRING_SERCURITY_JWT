@@ -1,4 +1,4 @@
-package com.securityjwt.service.impl;
+package com.securityjwt.service.auth.impl;
 
 import com.securityjwt.model.dto.request.UserLogin;
 import com.securityjwt.model.dto.request.UserRegister;
@@ -8,8 +8,6 @@ import com.securityjwt.model.entity.User;
 import com.securityjwt.repository.UserRepository;
 import com.securityjwt.security.jwt.JwtProvider;
 import com.securityjwt.security.user_principal.UserPrincipal;
-import com.securityjwt.service.IRoleService;
-import com.securityjwt.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,8 +1,7 @@
-package com.securityjwt.service.impl;
+package com.securityjwt.service.auth.impl;
 
 import com.securityjwt.model.entity.Role;
 import com.securityjwt.repository.IRoleRepository;
-import com.securityjwt.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

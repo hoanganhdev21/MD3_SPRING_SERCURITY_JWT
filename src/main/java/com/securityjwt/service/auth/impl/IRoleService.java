@@ -1,4 +1,4 @@
-package com.securityjwt.service;
+package com.securityjwt.service.auth.impl;
 
 import com.securityjwt.model.entity.Role;
 

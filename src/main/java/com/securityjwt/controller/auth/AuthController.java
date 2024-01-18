@@ -1,9 +1,9 @@
-package com.securityjwt.controller;
+package com.securityjwt.controller.auth;
 
 import com.securityjwt.model.dto.request.UserLogin;
 import com.securityjwt.model.dto.request.UserRegister;
 import com.securityjwt.model.dto.response.JwtResponse;
-import com.securityjwt.service.IUserService;
+import com.securityjwt.service.auth.impl.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
